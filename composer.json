@@ -2,6 +2,7 @@
     "name": "ggoop/gmf-laravel",
     "description": "gmf for laravel5",
 	"license": "MIT",
+	"version": "1.0.0",
     "authors": [
         {
             "name": "ggoop",
