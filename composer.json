@@ -1,0 +1,25 @@
+{
+    "name": "ggoop/gmf-laravel",
+    "description": "gmf for laravel5",
+	"license": "MIT",
+    "authors": [
+        {
+            "name": "ggoop",
+            "email": "samuel_abe@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.2",
+        "illuminate/container": "~5.4",
+        "illuminate/contracts": "~5.4",
+        "illuminate/database": "~5.4",
+        "illuminate/http": "~5.4",
+        "illuminate/support": "~5.4",
+    },
+    "autoload": {
+        "psr-4": {
+            "Ggoop\\Gmf\\": "src/"
+        }
+    }
+}
