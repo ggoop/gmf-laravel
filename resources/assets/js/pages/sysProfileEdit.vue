@@ -13,8 +13,8 @@
     <md-part-body>
       <md-content>
         <md-input-container>
-          <label>分类</label>
-          <md-input-ref md-ref-id="gmf.cbo.item.category.ref" placeholder="选择或添加分类" v-model="model.main.category"/>
+          <label>范围</label>
+          <md-enum md-enum-id="gmf.sys.profile.scopeEnum" v-model="model.main.scope_enum"></md-enum>
         </md-input-container>
         <md-input-container>
           <label>编码</label>
@@ -34,7 +34,7 @@
   </md-part>
 </template>
 <script>
-  import model from '../../core/mixin/model';
+  import model from '../core/mixin/model';
   export default {
     data() {
       return {
@@ -48,7 +48,11 @@
     },
     methods: {
       validate(notToast){
-        var validator=this.$validate(this.model.main,{'code':'required|max:255|min:3','name':'required'});
+        var validator=this.$validate(this.model.main,{
+          'code':'required|max:255|min:3',
+          'name':'required',
+          'scope_enum':'required'
+        });
         var fail=validator.fails();
         if(fail&&!notToast){
           this.$toast(validator.errors.all());
@@ -57,15 +61,15 @@
       },
       initModel(){
         return {
-          main:{'code':'','name':'','memo':''}
+          main:{'code':'','name':'','memo':'','scope_enum':''}
         }
       },
       list() {
-        this.$router.push({ name: 'module', params: { module: 'cbo.item.list' }});
+        this.$router.push({ name: 'module', params: { module: 'sys.profile.list' }});
       },
     },
     created() {
-      this.route='cbo/items';
+      this.route='sys/profiles';
     },
   };
 </script>

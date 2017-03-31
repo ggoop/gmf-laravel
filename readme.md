@@ -4,8 +4,6 @@ gmf framework
 
 ### Quick Overview:
 
-Let's see how easy it is to install `NGINX`, `PHP`, `Composer`, `MySQL`, `Redis` and `beanstalkd`:
-
 1 - 使用 Composer 依赖包管理器安装 Ggoop/Gmf:
 
 ```shell
@@ -45,4 +43,25 @@ class RouteServiceProvider extends ServiceProvider {
 5 - 使用 Artisan 命令 vendor:publish 来发布 Gmf 的 Vue 组件：
 ```shell
 php artisan vendor:publish --tag=gmf-components
+```
+
+
+5 - 日志记录,在app\Http\Kernel.php 文件中，注册路由中间件
+
+```shell
+protected $routeMiddleware = [
+    ...
+    'visitor' => \Ggoop\Gmf\Http\Middleware\VisitorMiddleware::class,
+  ];
+protected $middlewareGroups = [
+    'web' => [
+      ...
+      'visitor',
+    ],
+
+    'api' => [
+      ...
+      'visitor',
+    ],
+  ];
 ```

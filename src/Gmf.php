@@ -21,6 +21,9 @@ class Gmf {
 			'middleware' => 'web',
 			'namespace' => '\Ggoop\Gmf\Http\Controllers\Web',
 		];
+		Route::get('/{page?}', function () {
+			return view('gmf::app');
+		})->where('page', '^(?!js\/|gapi\/|css\/|dist\/).*$');
 
 		$options = array_merge($defaultOptions, $options);
 

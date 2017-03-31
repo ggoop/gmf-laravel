@@ -13,10 +13,6 @@
     <md-part-body>
       <md-content>
         <md-input-container>
-          <label>日历</label>
-          <md-input-ref md-ref-id="gmf.cbo.period.calendar.ref" placeholder="选择或添加日历" v-model="model.main.calendar"/>
-        </md-input-container>
-        <md-input-container>
           <label>编码</label>
           <md-input required maxlength="10" v-model="model.main.code"></md-input>
         </md-input-container>
@@ -34,7 +30,7 @@
   </md-part>
 </template>
 <script>
-  import model from '../../core/mixin/model';
+  import model from '../core/mixin/model';
   export default {
     data() {
       return {
@@ -61,11 +57,11 @@
         }
       },
       list() {
-        this.$router.push({ name: 'module', params: { module: 'cbo.period.account.list' }});
+        this.$router.push({ name: 'module', params: { module: 'org.org.list' }});
       },
     },
     created() {
-      this.route='cbo/period-accounts';
+      this.route='org/orgs';
     },
   };
 </script>
