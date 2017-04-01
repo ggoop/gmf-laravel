@@ -16,7 +16,7 @@ class GmfServiceProvider extends ServiceProvider {
 			$this->registerMigrations();
 
 			$this->publishes([
-				__DIR__ . '/../resources/assets/fonts' => base_path('resources/assets/fonts'),
+				__DIR__ . '/../resources/assets/fonts' => base_path('resources/assets/fonts/vendor/gmf'),
 			], 'gmf');
 
 			$this->publishes([
