@@ -23,6 +23,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
     .extract(['axios', 'lodash', 'vue', 'vue-router','uuid']);
 mix.sass('resources/assets/sass/app.scss', 'public/css');
 
-mix.copy('resources/assets/img/bg', 'public/img/bg');
+mix.copyDirectory('resources/assets/img', 'public/img');
 
 mix.version();
