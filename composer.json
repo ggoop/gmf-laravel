@@ -1,6 +1,6 @@
 {
     "name": "ggoop/gmf-laravel",
-    "description": "The Laravel Framework.",
+    "description": "The gmf Laravel Framework.",
     "keywords": ["framework", "galaster"],
     "license": "MIT",
     "type": "project",
