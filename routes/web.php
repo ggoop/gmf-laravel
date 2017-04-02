@@ -12,8 +12,8 @@
  */
 
 Route::get('/{page?}', function () {
-	return 'gmf';
-	//return view('gmf::app');
+	//return 'gmf';
+	return view('gmf::app');
 })->where('page', '^(?!js\/|gapi\/|css\/|dist\/).*$');
 
 /*
