@@ -183,7 +183,7 @@ return [
 		/*
 		Gmf
 		 */
-		Gmf\ServiceProvider::class,
+		Gmf\Sys\ServiceProvider::class,
 	],
 
 	/*
