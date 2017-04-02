@@ -8,9 +8,8 @@
 /resources/assets/sass/vendor
 /resources/assets/fonts/vendor
 /resources/views/vendor
-storage/
+/.vagrant
 /.idea
 Homestead.json
 Homestead.yaml
-bootstrap/cache/
 composer.lock
