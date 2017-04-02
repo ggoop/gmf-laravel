@@ -4,10 +4,6 @@
 /public/hot
 /storage/*.key
 /vendor
-/resources/assets/js/vendor
-/resources/assets/sass/vendor
-/resources/assets/fonts/vendor
-/resources/views/vendor
 /.vagrant
 /.idea
 Homestead.json
