@@ -10,7 +10,7 @@
         "laravel/passport": "^2.0",
         "laravel/tinker": "~1.0",
         "predis/predis": "^1.1",
-        "ggoop/gmf-sys": "dev-master",
+        "ggoop/gmf-sys": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
