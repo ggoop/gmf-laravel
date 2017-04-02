@@ -12,7 +12,7 @@
  */
 
 Route::get('/{page?}', function () {
-	return '';
+	return 'gmf';
 	//return view('gmf::app');
 })->where('page', '^(?!js\/|gapi\/|css\/|dist\/).*$');
 

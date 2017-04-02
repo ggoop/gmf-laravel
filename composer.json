@@ -1,5 +1,5 @@
 {
-    "name": "ggoop/galaster",
+    "name": "ggoop/gmf-laravel",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "galaster"],
     "license": "MIT",
@@ -9,7 +9,8 @@
         "laravel/framework": "5.4.12",
         "laravel/passport": "^2.0",
         "laravel/tinker": "~1.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "ggoop/gmf-sys": "dev-master",
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -21,10 +22,7 @@
             "database"
         ],
         "psr-4": {
-            "App\\": "app/",
-            "Ggoop\\Gmf\\":"packages/gmf-laravel/src/",
-            "Ggoop\\Cbo\\":"packages/gmf-cbo/src/",
-            "Ggoop\\Amiba\\":"packages/gmf-amiba/src/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
