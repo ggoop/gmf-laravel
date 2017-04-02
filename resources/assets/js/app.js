@@ -1,3 +1,3 @@
 window.Vue = window.Vue || require('vue');
-import gmf from './vendor/gmf-sys';
+import gmf from './vendor/gmfSys';
 gmf.run();
