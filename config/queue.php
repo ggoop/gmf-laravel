@@ -79,7 +79,7 @@ return [
 
 	'failed' => [
 		'database' => env('DB_CONNECTION', 'mysql'),
-		'table' => 'gmf_failed_jobs',
+		'table' => 'gmf_sys_job_faileds',
 	],
 
 ];
