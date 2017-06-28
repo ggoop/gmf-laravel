@@ -22,5 +22,10 @@ php artisan migrate
 
 4 - 使用 Artisan 命令 vendor:publish 来发布 gmf-sys 的 Vue 组件：
 ```shell
-php artisan vendor:publish --tag=gmf
+php artisan vendor:publish --tag=gmf  --force
+```
+
+5 - 使用 Artisan 命令 db:seed 填充数据：
+```shell
+php artisan db:seed
 ```
