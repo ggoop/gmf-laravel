@@ -13,11 +13,17 @@
     "axios": "^0.15.3",
     "cross-env": "^3.2.3",
     "laravel-mix": "0.*",
+    "highcharts": "^5.0.10",
     "lodash": "^4.17.4",
     "vue": "^2.1.10",
     "vue-router": "^2.3.0",
     "uuid": "^3.0.1",
     "raw-loader": "^0.5.1",
     "babel-core": "^6.23.1"
+  },
+  "dependencies": {
+    "d3": "^4.8.0",
+    "iscroll": "^5.2.0",
+    "moment": "^2.18.1"
   }
 }

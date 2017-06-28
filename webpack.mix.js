@@ -20,7 +20,7 @@ mix.webpackConfig({
     }
 });
 mix.js('resources/assets/js/app.js', 'public/js')
-    .extract(['axios', 'lodash', 'vue', 'vue-router','uuid']);
+    .extract(['axios', 'lodash', 'vue', 'vue-router','uuid','highcharts','iscroll','d3','moment']);
 mix.sass('resources/assets/sass/app.scss', 'public/css');
 
 mix.copyDirectory('resources/assets/img', 'public/img');

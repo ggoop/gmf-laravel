@@ -64,7 +64,7 @@ return [
 		    |
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'Asia/Shanghai',
 
 	/*
 		    |--------------------------------------------------------------------------
@@ -176,14 +176,12 @@ return [
 		// App\Providers\BroadcastServiceProvider::class,
 		App\Providers\EventServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
+
 		/*
-			  api
+			Gmf
 		*/
-		#Laravel\Passport\PassportServiceProvider::class,
-		/*
-		Gmf
-		 */
 		Gmf\Sys\ServiceProvider::class,
+		Gmf\Sys\Passport\ServiceProvider::class,
 	],
 
 	/*
@@ -232,7 +230,8 @@ return [
 		'URL' => Illuminate\Support\Facades\URL::class,
 		'Validator' => Illuminate\Support\Facades\Validator::class,
 		'View' => Illuminate\Support\Facades\View::class,
-
+		//QrCode
+		'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 	],
 
 ];
