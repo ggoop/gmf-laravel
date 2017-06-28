@@ -7,6 +7,7 @@ gmf framework
 1 - 通过 Composer Create-Project
 ```shell
 composer create-project --prefer-dist ggoop/gmf-laravel myproject
+composer create-project --prefer-dist ggoop/gmf-laravel=dev-master myproject
 ```
 2 - 你需要运行 passport:keys 命令来创建生成安全访问令牌时用到的加密密钥
 进入项目目标，用下列命令运行
