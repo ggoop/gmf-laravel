@@ -14,18 +14,21 @@ composer create-project --prefer-dist ggoop/gmf-laravel myproject
 php artisan passport:keys
 ```
 
-3 -使用服务提供者注册内部的数据库迁移脚本目录，你需要更新你的数据库结构。Gmf的迁移脚本会自动创建应用程序需要的数据表：
+## 运行 gmf-laravel
+1 - 修改.env环境配置文件
+
+2 -使用服务提供者注册内部的数据库迁移脚本目录，你需要更新你的数据库结构。Gmf的迁移脚本会自动创建应用程序需要的数据表：
 
 ```shell
 php artisan migrate
 ```
 
-4 - 使用 Artisan 命令 vendor:publish 来发布 gmf-sys 的 Vue 组件：
+3 - 使用 Artisan 命令 vendor:publish 来发布 gmf-sys 的 Vue 组件：
 ```shell
 php artisan vendor:publish --tag=gmf  --force
 ```
 
-5 - 使用 Artisan 命令 db:seed 填充数据：
+4 - 使用 Artisan 命令 db:seed 填充数据：
 ```shell
 php artisan db:seed
 ```
