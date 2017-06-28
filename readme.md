@@ -36,5 +36,6 @@ php artisan vendor:publish --tag=gmf  --force
 
 5- 使用 npm 命令 npm run dev 来编译 的 Vue 组件：
 ```shell
+npm install
 npm run dev
 ```
