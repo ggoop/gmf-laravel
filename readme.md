@@ -24,12 +24,17 @@ php artisan passport:keys
 php artisan migrate
 ```
 
-3 - 使用 Artisan 命令 vendor:publish 来发布 gmf-sys 的 Vue 组件：
+3 - 使用 Artisan 命令 db:seed 填充数据：
+```shell
+php artisan db:seed
+```
+
+4 - 使用 Artisan 命令 vendor:publish 来发布 gmf-sys 的 Vue 组件：
 ```shell
 php artisan vendor:publish --tag=gmf  --force
 ```
 
-4 - 使用 Artisan 命令 db:seed 填充数据：
+5- 使用 npm 命令 npm run dev 来编译 的 Vue 组件：
 ```shell
-php artisan db:seed
+npm run dev
 ```
