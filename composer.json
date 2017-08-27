@@ -1,16 +1,14 @@
 {
     "name": "ggoop/gmf-laravel",
-    "description": "The gmf Laravel Framework.",
-    "keywords": ["framework", "galaster"],
+    "description": "The Laravel Framework.",
+    "keywords": ["framework","gmf"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=5.6.4",
-        "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0",
-        "predis/predis": "^1.1",
-        "ggoop/gmf-sys": "dev-master",
-        "simplesoftwareio/simple-qrcode": "^1.5"
+        "ggoop/gmf-sys": "^1.0",
+        "ggoop/gmf-passport": "^1.0",
+        "laravel/tinker": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
