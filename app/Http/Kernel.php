@@ -34,7 +34,7 @@ class Kernel extends HttpKernel {
 			//\App\Http\Middleware\VerifyCsrfToken::class,
 			\Illuminate\Routing\Middleware\SubstituteBindings::class,
 			'visitor',
-			\Gmf\Sys\Passport\Http\Middleware\CreateFreshApiToken::class,
+			\Gmf\Passport\Http\Middleware\CreateFreshApiToken::class,
 		],
 
 		'api' => [
@@ -59,7 +59,7 @@ class Kernel extends HttpKernel {
 		'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
 		'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 		'visitor' => \Gmf\Sys\Http\Middleware\VisitorMiddleware::class,
-		'client_credentials' => \Gmf\Sys\Passport\Http\Middleware\CheckClientCredentials::class,
+		'client_credentials' => \Gmf\Passport\Http\Middleware\CheckClientCredentials::class,
 		'ent_check' => \Gmf\Sys\Http\Middleware\EntCheck::class,
 	];
 }

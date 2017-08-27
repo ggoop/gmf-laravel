@@ -182,7 +182,7 @@ return [
 			Gmf
 		*/
 		Gmf\Sys\ServiceProvider::class,
-		Gmf\Sys\Passport\ServiceProvider::class,
+		Gmf\Passport\ServiceProvider::class,
 	],
 
 	/*

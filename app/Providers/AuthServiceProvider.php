@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-use Gmf\Sys\Passport\Passport;
+use Gmf\Passport\Passport;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider {
