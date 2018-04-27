@@ -1,13 +1,13 @@
 {
-    "name": "gmf/gmf-laravel",
-    "description": "gmf laravel",
+    "name": "ggoop/gmf-laravel",
+    "description": "ggoop gmf laravel",
     "keywords": ["gmf","framework", "laravel"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=7.0.0",
         "elasticsearch/elasticsearch": "~5.0",
-        "fideloper/proxy": "^3.*",
+        "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "ggoop/gmf-sys": "^1.2",
         "laravel/tinker": "~1.0",
