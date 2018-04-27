@@ -1,28 +1,43 @@
+const { join } = require('path')
 const { mix } = require('laravel-mix');
 
-/*
- |--------------------------------------------------------------------------
- | Mix Asset Management
- |--------------------------------------------------------------------------
- |
- | Mix provides a clean, fluent API for defining some Webpack build steps
- | for your Laravel application. By default, we are compiling the Sass
- | file for the application as well as bundling up all the JS files.
- |
- */
+const resolvePath = (...args) => {
+  const path = [__dirname, '/resources/assets/js/vendor', ...args]
 
-mix.webpackConfig({
-    module: {
-        rules: [{
-            test: /\.theme$/,
-            use: ['raw-loader', 'sass-loader']
-        }]
+  return join.apply(null, path)
+}
+
+mix.options({
+  extractVueStyles: true,
+  purifyCss: false,
+  uglify: {
+    sourceMap: true,
+    uglifyOptions: {
+      compress: {
+        warnings: false,
+        drop_console: true,
+      },
+      output: {
+        comments: false
+      }
     }
+  },
+  clearConsole: false
+});
+mix.webpackConfig({
+  output: {
+    publicPath: "/",
+    chunkFilename: 'js/chunks/[name].[chunkhash].js'
+  },
+  resolve: {
+    alias: {
+      'gmf': resolvePath('gmf-sys')
+    }
+  },
 });
 mix.js('resources/assets/js/app.js', 'public/js')
-    .extract(['axios', 'lodash', 'vue', 'vue-router','uuid','highcharts','iscroll','d3','moment']);
+  .extract(['axios', 'vue', 'vue-router','vuex','raf']);
 mix.sass('resources/assets/sass/app.scss', 'public/css');
-
-mix.copyDirectory('resources/assets/img', 'public/img');
+//date-fns,lodash
 
 mix.version();

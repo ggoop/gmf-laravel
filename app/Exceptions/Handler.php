@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Gmf\Sys\Libs\APIResult;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
@@ -41,8 +42,35 @@ class Handler extends ExceptionHandler {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function render($request, Exception $exception) {
+		$StatusCode = -1;
+		if (method_exists($exception, 'getStatusCode')) {
+			$StatusCode = $exception->getStatusCode();
+		}
 		if ($request->expectsJson() || $request->is('api/*')) {
-			//return response()->json($exception, 401);
+			$msg = '';
+			if (is_a($exception, \Illuminate\Validation\ValidationException::class)) {
+				$msg = $exception->errors();
+			}
+			if (!$msg && is_a($exception, \Symfony\Component\HttpKernel\Exception\NotFoundHttpException::class)) {
+				$msg = 'NotFound';
+			}
+			if (!$msg && is_a($exception, \Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException::class)) {
+				$msg = 'NotAllowed';
+			}
+			if (!$msg && method_exists($exception, 'getRawMessage')) {
+				$msg = $exception->getRawMessage();
+			}
+			if (!$msg && method_exists($exception, 'getMessage')) {
+				$msg = $exception->getMessage();
+			}
+			if (is_a($exception, AuthenticationException::class)) {
+				return APIResult::error($msg, null, 401);
+			}
+			if ($msg) {
+				return APIResult::error($msg);
+			}
+			return APIResult::error($msg);
+
 		}
 		return parent::render($request, $exception);
 	}
@@ -56,9 +84,8 @@ class Handler extends ExceptionHandler {
 	 */
 	protected function unauthenticated($request, AuthenticationException $exception) {
 		if ($request->expectsJson()) {
-			return response()->json(['error' => 'Unauthenticated.'], 401);
+			return response()->json(['error' => 'Unauthenticated'], 401);
 		}
-
-		return redirect()->guest('login');
+		return redirect()->guest('/auth/login');
 	}
 }

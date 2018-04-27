@@ -12,7 +12,7 @@ return [
 		    | any other location as required by the application or its packages.
 	*/
 
-	'name' => 'Laravel',
+	'name' => env('APP_NAME', 'Laravel'),
 
 	/*
 		    |--------------------------------------------------------------------------
@@ -176,13 +176,16 @@ return [
 		// App\Providers\BroadcastServiceProvider::class,
 		App\Providers\EventServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
+
 		//qrcode
 		SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
+		\hisorange\BrowserDetect\ServiceProvider::class,
+
 		/*
 			Gmf
 		*/
 		Gmf\Sys\ServiceProvider::class,
-		Gmf\Passport\ServiceProvider::class,
 	],
 
 	/*
@@ -233,6 +236,9 @@ return [
 		'View' => Illuminate\Support\Facades\View::class,
 		//QrCode
 		'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+		'Browser' => \hisorange\BrowserDetect\Facade::class,
+
+		'GAuth' => Gmf\Sys\GAuthFacade::class,
 	],
 
 ];

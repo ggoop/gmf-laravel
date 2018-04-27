@@ -4,8 +4,6 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder {
 	protected $seeders = [
-		'SysUserSeeder',
-		'SysClientSeeder',
 	];
 
 	public function run() {

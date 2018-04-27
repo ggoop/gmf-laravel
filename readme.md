@@ -1,41 +1,70 @@
-# gmf-laravel
-gmf framework
+# ghub-laravel
+ghub laravel
 ## Documentation
 
 
-## 安装 gmf-laravel
-1 - 通过 Composer Create-Project
+## git clone project
 ```shell
-composer create-project --prefer-dist ggoop/gmf-laravel myproject
-composer create-project --prefer-dist ggoop/gmf-laravel=dev-master myproject
-```
-2 - 你需要运行 passport:keys 命令来创建生成安全访问令牌时用到的加密密钥
-进入项目目标，用下列命令运行
-```shell
-php artisan passport:keys
+git clone https://github.com/gyonyou/ghub-laravel.git
 ```
 
-## 运行 gmf-laravel
-1 - 修改.env环境配置文件
-
-2 -使用服务提供者注册内部的数据库迁移脚本目录，你需要更新你的数据库结构。Gmf的迁移脚本会自动创建应用程序需要的数据表：
-
+## set project config
 ```shell
-php artisan migrate
+cd suite-laravel
+rename composer.json.prod composer.json composer.json.prod
 ```
 
-3 - 使用 Artisan 命令 db:seed 填充数据：
+
+## init project
 ```shell
-php artisan db:seed
+
+composer install
+
+composer run-script gmf-install
 ```
 
-4 - 使用 Artisan 命令 vendor:publish 来发布 gmf-sys 的 Vue 组件：
+## install data
 ```shell
-php artisan vendor:publish --tag=gmf  --force
+php artisan gmf:install --force
 ```
 
-5- 使用 npm 命令 npm run dev 来编译 的 Vue 组件：
-```shell
-npm install
-npm run dev
-```
+## to pdf 
+https://www.cnblogs.com/woider/p/7003481.html
+
+
+## u9 trial dll
+
+//1.下载dynwrap.dll
+    //2.把该文件放入system32 ,php/ext/,SysWOW64 下，修改php.ini,增加extension=dynwrap.dll
+    //3.注册dynwrap.dll： cmd regsvr32 C:/Windows/System32/dynwrap.dll
+    //4.将要调用的dll放入system32
+    /*
+      $dw = new COM("DynamicWrapper");
+      $dw->Register("Dll1test.dll", "add", "f=s", "i=uu", "r=l");
+      $ch = $dw->add(11,22); //dll的add函数调用
+
+      在Register("AES.dll", "EnAES_Path", 'i=sss', "f=s", "r=l");这里面的几个参数：
+      第一个参数是你DLL文件名，
+      第二个参数是你DLL里面的方法名，
+      第三个参数i=sss 表示你dll的方法参数的对应的类型，如：你的dll有两个参数是文本的型的，那就I=ss  ！
+      第四个参数"f=s"一般固定
+      最后一个参数是你返回的类型！因为PHP调用非COM组件的dll返回s 也就是string类型接收不到为空
+
+      http://www.borncity.com/web/WSHBazaar1/WSHDynaCall.htm
+
+      i=describes the number and data type of the functions parameters
+      f=type of call _stdcall or _cdecl. So it can work with both MS C++ and Borland C++. Default to _stdcall. If that doesn't work use _cdecl. If that doesn't work good luck!
+      r=return data type.
+
+      {'a', sizeof(IDispatch*), VT_DISPATCH}, // a IDispatch*
+      {'c', sizeof(unsigned char), VT_I4}, // c signed char
+      {'d', sizeof(double), VT_R8}, // d 8 byte real
+      {'f', sizeof(float), VT_R4}, // f 4 byte real
+      {'k', sizeof(IUnknown*), VT_UNKNOWN}, // k IUnknown*
+      {'h', sizeof(long), VT_I4}, // h HANDLE
+      {'l', sizeof(long), VT_I4}, // l long
+      {'p', sizeof(void*), VT_PTR}, // p pointer
+      {'s', sizeof(BSTR), VT_LPSTR}, // s string
+      {'t', sizeof(short), VT_I2}, // t short
+      {'u', sizeof(UINT), VT_UINT}, // u unsigned int
+      {'w', sizeof(BSTR), VT_LPWSTR}, // w wide string

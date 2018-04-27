@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Providers;
-use Gmf\Sys\Sys;
+
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +21,6 @@ class RouteServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function boot() {
-		Sys::routes();
 		parent::boot();
 	}
 
