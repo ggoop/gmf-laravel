@@ -17,7 +17,7 @@ const appMixin = {
       return false;
     },
     async beforeCreated() {
-      this.appName = 'U9HUB';
+      this.appName = 'gmf';
       if (window.gmfConfig) {
         this.$setConfigs(window.gmfConfig);
       }

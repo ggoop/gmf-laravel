@@ -13,3 +13,4 @@
 
 //
 Route::get('/', ['uses' => 'HomeController@home']);
+Route::get('/site/configs', ['uses' => 'HomeController@getConfigs']);
