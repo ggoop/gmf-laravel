@@ -186,6 +186,8 @@ return [
 			Gmf
 		*/
 		Gmf\Sys\ServiceProvider::class,
+
+		// Dummy Provider Placed
 	],
 
 	/*
@@ -238,7 +240,11 @@ return [
 		'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 		'Browser' => \hisorange\BrowserDetect\Facade::class,
 
-		'GAuth' => Gmf\Sys\GAuthFacade::class,
+		'GAuth' => Gmf\Sys\Facades\GAuth::class,
+		'Packager' => Gmf\Sys\Facades\Packager::class,
+		'Uuid' => Gmf\Sys\Facades\Uuid::class,
+
+		// Dummy Facade Placed
 	],
 
 ];
