@@ -187,7 +187,7 @@ return [
 		*/
 		Gmf\Sys\ServiceProvider::class,
 
-		// Dummy Provider Placed
+		/*DummyProviderPlaced*/
 	],
 
 	/*
@@ -244,7 +244,7 @@ return [
 		'Packager' => Gmf\Sys\Facades\Packager::class,
 		'Uuid' => Gmf\Sys\Facades\Uuid::class,
 
-		// Dummy Facade Placed
+		/*DummyFacadePlaced*/
 	],
 
 ];
