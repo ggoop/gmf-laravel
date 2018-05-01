@@ -1,10 +1,11 @@
 window.Vue = window.Vue || require('vue');
 
-// import "babel-polyfill";
-import { start } from './vendor/gmf-sys';
-//import stage from './vendor/ghub-stage';
+import { start } from 'gmf';
 import http from 'gmf/core/utils/http';
-//Vue.use(stage);
+import bootstart from './bootstart';
+
+Vue.use(bootstart);
+
 const appMixin = {
   methods: {
     async loadConfigs() {

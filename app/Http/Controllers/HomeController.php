@@ -21,6 +21,7 @@ class HomeController extends Controller {
 	public function getConfigs(Request $request) {
 		$config = new Builder;
 		$config->userName('用户名');
+		$config->userData('欢迎使用gmf!');
 		return $this->toJson($config);
 	}
 
