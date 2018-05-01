@@ -12,7 +12,7 @@ class HomeController extends Controller {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->middleware('visitor');
+		//$this->middleware('visitor');
 	}
 	public function home(Request $request) {
 		$config = new Builder;
