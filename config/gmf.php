@@ -16,6 +16,7 @@ return [
 	],
 	//应用信息
 	'client' => [
+		'id' => env('GMF_OAUTH_CLIENT_ID', env('APP_KEY', '')),
 		//应用名称
 		'name' => env('GMF_OAUTH_CLIENT_NAME', env('APP_NAME', '')),
 		//应用秘钥,默认为应用KEY
