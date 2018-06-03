@@ -9,7 +9,7 @@
     "php": ">=7.0.0",
     "fideloper/proxy": "~3.3",
     "laravel/framework": "5.5.*",
-    "ggoop/gmf-sys": "^1.2",
+    "ggoop/gmf-sys": "dev-master",
     "laravel/tinker": "~1.0",
     "hisorange/browser-detect": "^3.1"
   },

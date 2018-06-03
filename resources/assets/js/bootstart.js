@@ -1,6 +1,6 @@
-import config from 'gmf/config';
+import gapp from 'gmf/app';
 import routesAuth from 'gmf/routes/auth';
-
+import gmfComponent from 'gmf/component'
 import components from './components';
 import routesWeb from './routes/web';
 
@@ -9,7 +9,7 @@ import './themes/theme';
 const options = {
   components,
 };
-
+gapp.use(gmfComponent);
 options.install = (Vue) => {
   if (options.installed) {
     console.warn('Vue components is already installed.');
@@ -23,8 +23,8 @@ options.install = (Vue) => {
     }
   }
 
-  config.route(routesAuth);
-  config.route(routesWeb);
+  gapp.route(routesAuth);
+  gapp.route(routesWeb);
 
   options.installed = true;
 };

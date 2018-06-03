@@ -6,7 +6,11 @@ const resolvePath = (...args) => {
 
   return join.apply(null, path)
 }
+const resolveGmfPath = () => {
+  const path = [__dirname, '/packages/gmf-sys/resources/assets/js']
 
+  return join.apply(null, path)
+}
 mix.options({
   extractVueStyles: true,
   purifyCss: false,
@@ -31,6 +35,7 @@ mix.webpackConfig({
   },
   resolve: {
     alias: {
+      // 'gmf': resolveGmfPath()
       'gmf': resolvePath('gmf-sys')
     }
   },
@@ -38,6 +43,5 @@ mix.webpackConfig({
 mix.js('resources/assets/js/app.js', 'public/js')
   .extract(['axios', 'vue', 'vue-router','vuex','raf']);
 mix.sass('resources/assets/sass/app.scss', 'public/css');
-//date-fns,lodash
 
 mix.version();

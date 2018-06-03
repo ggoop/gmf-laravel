@@ -1,10 +1,10 @@
 window.Vue = window.Vue || require('vue');
 
-import { start } from 'gmf';
+import gapp from 'gmf/app';
 import http from 'gmf/core/utils/http';
 import bootstart from './bootstart';
 
-Vue.use(bootstart);
+gapp.use(bootstart);
 
 const appMixin = {
   methods: {
@@ -33,7 +33,8 @@ function getQueryString(name) {
   if (r != null) return unescape(r[2]);
   return null;
 }
-var promise = new Promise(function(resolve, reject) {
+gapp.config(function(){
+  return new Promise(function(resolve, reject) {
   const vcode = getQueryString('vcode');
   if (vcode) {
     http.post('/api/sys/auth/login-vcode/' + vcode).then(res => {
@@ -42,12 +43,12 @@ var promise = new Promise(function(resolve, reject) {
   } else {
     getConfigs();
   }
+
   function getConfigs() {
-    http.get('/site/configs').then(res => {
-      window.gmfConfig = res.data.data;
-      resolve();
+    http.get('/site/configs', { params: GetRequestParams() }).then(res => {
+      resolve(res.data.data);
     });
   }
+})
 });
-
-start.run({ promise }, appMixin);
+gapp.run({});
