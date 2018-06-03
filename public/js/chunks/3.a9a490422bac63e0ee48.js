@@ -1,6 +1,6 @@
-webpackJsonp([5],{
+webpackJsonp([3],{
 
-/***/ "./node_modules/_babel-loader@7.1.4@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],\"es2015\",\"stage-3\",[\"env\",{\"modules\":false,\"useBuiltIns\":false}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"syntax-dynamic-import\"],\"ignore\":[\"dist/*.js\",\"public/*.js\"]}!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=script&index=0!./packages/gmf-sys/resources/assets/js/pages/Auth/VerifyMail.vue":
+/***/ "./node_modules/_babel-loader@7.1.4@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],\"es2015\",\"stage-3\",[\"env\",{\"modules\":false,\"useBuiltIns\":false}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"syntax-dynamic-import\"],\"ignore\":[\"dist/*.js\",\"public/*.js\"]}!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/vendor/gmf-sys/pages/Auth/PasswordFindWord.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -59,34 +59,24 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 exports.default = {
-  name: 'GmfPagesAuthVerifyMail',
+  name: 'GmfPagesAuthPasswordFindWord',
+  props: {},
   mixins: [_vuelidate.validationMixin],
   data: function data() {
     return {
       mainDatas: {},
       loading: 0,
-      isSended: false,
       sending: false
     };
   },
 
   validations: {
     mainDatas: {
-      token: {
+      email: {
         required: _validators.required,
-        minLength: (0, _validators.minLength)(6),
-        maxLength: (0, _validators.maxLength)(6)
+        email: _validators.email
       }
     }
   },
@@ -97,16 +87,16 @@ exports.default = {
       return q;
     },
     disabledSendBtn: function disabledSendBtn() {
-      return this.sending || this.isSended || !!this.mainDatas.token;
+      return this.sending || !!this.mainDatas.vcode;
     },
     disabledConfirmBtn: function disabledConfirmBtn() {
-      return this.sending || !this.mainDatas.token;
-    },
-    tipLabel: function tipLabel() {
-      return '验证码将发送到 ' + this.mainDatas.email;
+      return this.sending || !this.mainDatas.vcode;
     }
   },
   methods: {
+    onSendCode: function onSendCode() {
+      this.$toast('验证码已发送到您的邮件上，请及时查收!');
+    },
     getValidationClass: function getValidationClass(fieldName) {
       var field = this.$v.mainDatas[fieldName];
       if (field) {
@@ -115,23 +105,6 @@ exports.default = {
         };
       }
     },
-    onOtherClick: function onOtherClick() {
-      this.$go(this.$route.query.continue ? this.$route.query.continue : this.$root.configs.home);
-    },
-    onSendCode: function onSendCode() {
-      var _this = this;
-
-      this.sending = true;
-      var options = { id: this.mainDatas.id, account: this.mainDatas.account, type: 'verify-mail', mode: 'mail' };
-      this.$http.post('sys/auth/vcode-create', options).then(function (response) {
-        _this.isSended = true;
-        _this.sending = false;
-        _this.$toast('验证码已发送到您的邮件上，请及时查收!');
-      }).catch(function (err) {
-        _this.sending = false;
-        _this.$toast(err);
-      });
-    },
     validateForm: function validateForm() {
       this.$v.$touch();
       if (!this.$v.$invalid) {
@@ -139,21 +112,20 @@ exports.default = {
       }
     },
     submitPost: function submitPost() {
-      var _this2 = this;
+      var _this = this;
 
       this.sending = true;
-      var options = { id: this.mainDatas.id, account: this.mainDatas.account, token: this.mainDatas.token };
-      this.$http.post('sys/auth/verify-mail', options).then(function (response) {
-        _this2.sending = false;
-        _this2.$go(_this2.$route.query.continue ? _this2.$route.query.continue : _this2.$root.configs.home);
+      this.$http.post('sys/auth/login', this.mainDatas).then(function (response) {
+        _this.sending = false;
+        _this.$go('/');
       }).catch(function (err) {
-        _this2.sending = false;
-        _this2.$toast(err);
+        _this.sending = false;
+        _this.$toast(err);
       });
     },
     fetchData: function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_regenerator2.default.mark(function _callee() {
-        var response;
+        var thId, response, u;
         return _regenerator2.default.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -161,35 +133,41 @@ exports.default = {
                 _context.prev = 0;
 
                 this.sending = true;
-                _context.next = 4;
-                return this.$http.post('sys/auth/checker', { id: this.$root.configs.user.id });
+                thId = this.$route.params.id;
 
-              case 4:
+                if (!thId) {
+                  this.$go({ name: 'auth.login', query: this.routeQuery });
+                }
+                _context.next = 6;
+                return this.$http.post('sys/auth/checker', { id: thId });
+
+              case 6:
                 response = _context.sent;
+                u = response.data.data;
 
                 this.mainDatas = response.data.data;
-                _context.next = 12;
+                _context.next = 15;
                 break;
 
-              case 8:
-                _context.prev = 8;
+              case 11:
+                _context.prev = 11;
                 _context.t0 = _context['catch'](0);
 
                 this.$toast(_context.t0);
-                this.$go(this.$route.query.continue ? this.$route.query.continue : this.$root.configs.home);
-
-              case 12:
-                _context.prev = 12;
-
-                this.sending = false;
-                return _context.finish(12);
+                this.$go({ name: 'auth.identifier', query: this.routeQuery });
 
               case 15:
+                _context.prev = 15;
+
+                this.sending = false;
+                return _context.finish(15);
+
+              case 18:
               case 'end':
                 return _context.stop();
             }
           }
-        }, _callee, this, [[0, 8, 12, 15]]);
+        }, _callee, this, [[0, 11, 15, 18]]);
       }));
 
       function fetchData() {
@@ -226,7 +204,49 @@ exports.default = {
 
 /***/ }),
 
-/***/ "./node_modules/_vue-loader@13.7.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-0374385e\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=template&index=0!./packages/gmf-sys/resources/assets/js/pages/Auth/VerifyMail.vue":
+/***/ "./node_modules/_css-loader@0.28.11@css-loader/index.js!./node_modules/_vue-loader@13.7.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4a0debc9\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/vendor/gmf-sys/pages/Auth/PasswordFindWord.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__("./node_modules/_css-loader@0.28.11@css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "/**\r\n * The default transition, used when the element is visible\r\n * since the beginning of the animation\r\n * ---\r\n * @access private\r\n * @type transition\r\n * @group transition\r\n */\n/**\r\n * The enter transition, used when the element is not visible on the screen\r\n * since the beginning of the animation and become visible\r\n * ---\r\n * @access private\r\n * @type transition\r\n * @group transition\r\n */\n/**\r\n * The leave transition, used when the element is visible on the screen\r\n * since the beginning of the animation and is removed\r\n * ---\r\n * @access private\r\n * @type transition\r\n * @group transition\r\n */\n/**\r\n * The stand transition, used when the element is going to accelerate,\r\n * like movements from bottom to top\r\n * ---\r\n * @access private\r\n * @type transition\r\n * @group transition\r\n */\n/**\r\n * The out transition, used when the element is going to deaccelerate,\r\n * like movements from top to bottom\r\n * ---\r\n * @access private\r\n * @type transition\r\n * @group transition\r\n */\n/* Transitions - Based on Angular Material */\n/**\r\n * The layout system breakpoints\r\n * ---\r\n * @access private\r\n * @type layout\r\n * @group layout\r\n */\n/**\r\n * The available gutter sizes\r\n * ---\r\n * @access private\r\n * @type layout\r\n * @group layout\r\n */\n/**\r\n * Breakpoint\r\n */\n/**\r\n * Base\r\n */\n/**\r\n * Layout Item\r\n */\n/**\r\n * Hide Element\r\n */\n.md-card-actions[data-v-4a0debc9] {\n  justify-content: center;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/_extract-text-webpack-plugin@3.0.2@extract-text-webpack-plugin/dist/loader.js?{\"id\":1,\"omit\":1,\"remove\":true}!./node_modules/_vue-style-loader@3.1.2@vue-style-loader/index.js!./node_modules/_css-loader@0.28.11@css-loader/index.js!./node_modules/_vue-loader@13.7.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4a0debc9\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/vendor/gmf-sys/pages/Auth/PasswordFindWord.vue":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("./node_modules/_css-loader@0.28.11@css-loader/index.js!./node_modules/_vue-loader@13.7.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4a0debc9\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/vendor/gmf-sys/pages/Auth/PasswordFindWord.vue");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__("./node_modules/_vue-style-loader@3.1.2@vue-style-loader/lib/addStylesClient.js")("19c5de52", content, false, {});
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../../../node_modules/_css-loader@0.28.11@css-loader/index.js!../../../../../../../node_modules/_vue-loader@13.7.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4a0debc9\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!../../../../../../../node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=styles&index=0!./PasswordFindWord.vue", function() {
+     var newContent = require("!!../../../../../../../node_modules/_css-loader@0.28.11@css-loader/index.js!../../../../../../../node_modules/_vue-loader@13.7.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4a0debc9\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../../../node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!../../../../../../../node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=styles&index=0!./PasswordFindWord.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ "./node_modules/_vue-loader@13.7.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4a0debc9\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/vendor/gmf-sys/pages/Auth/PasswordFindWord.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -240,11 +260,9 @@ var render = function() {
         "md-card-header",
         [
           _c("md-card-header-text", [
-            _c("div", { staticClass: "md-title" }, [_vm._v("帐号认证")]),
+            _c("div", { staticClass: "md-title" }, [_vm._v("帐号帮助")]),
             _vm._v(" "),
-            _c("div", { staticClass: "md-body-1" }, [
-              _vm._v("电子邮件账号认证")
-            ])
+            _c("div", { staticClass: "md-body-1" }, [_vm._v("获取验证码")])
           ])
         ],
         1
@@ -265,7 +283,7 @@ var render = function() {
               _c("div", { staticClass: "md-list-item-text" }, [
                 _c("span", [_vm._v(_vm._s(_vm.mainDatas.name))]),
                 _vm._v(" "),
-                _c("span", [_vm._v(_vm._s(_vm.mainDatas.email))])
+                _c("span", [_vm._v(_vm._s(_vm.mainDatas.account))])
               ]),
               _vm._v(" "),
               _c(
@@ -288,24 +306,6 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("md-card-content", [_c("p", [_vm._v(_vm._s(_vm.tipLabel))])]),
-      _vm._v(" "),
-      _c(
-        "md-card-actions",
-        [
-          _c(
-            "md-button",
-            {
-              staticClass: "md-primary md-raised",
-              attrs: { disabled: _vm.disabledSendBtn },
-              on: { click: _vm.onSendCode }
-            },
-            [_vm._v("发送验证码")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
       _c(
         "form",
         {
@@ -321,41 +321,30 @@ var render = function() {
           _c(
             "md-card-content",
             [
+              _c("p", [_vm._v("请输入您可以立即查收邮件的电子邮件地址")]),
+              _vm._v(" "),
               _c(
-                "md-layout",
+                "md-field",
+                { class: _vm.getValidationClass("email") },
                 [
-                  _c(
-                    "md-field",
-                    { class: _vm.getValidationClass("token") },
-                    [
-                      _c("label", [_vm._v("验证码")]),
-                      _vm._v(" "),
-                      _c("md-input", {
-                        attrs: { autocomplete: "off", disabled: _vm.sending },
-                        model: {
-                          value: _vm.mainDatas.token,
-                          callback: function($$v) {
-                            _vm.$set(_vm.mainDatas, "token", $$v)
-                          },
-                          expression: "mainDatas.token"
-                        }
-                      }),
-                      _vm._v(" "),
-                      !_vm.$v.mainDatas.token.required
-                        ? _c("span", { staticClass: "md-error" }, [
-                            _vm._v("请输入验证码")
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      !_vm.$v.mainDatas.token.minLength ||
-                      !_vm.$v.mainDatas.token.maxLength
-                        ? _c("span", { staticClass: "md-error" }, [
-                            _vm._v("验证码格式不符合要求")
-                          ])
-                        : _vm._e()
-                    ],
-                    1
-                  )
+                  _c("label", [_vm._v("电子邮件地址")]),
+                  _vm._v(" "),
+                  _c("md-input", {
+                    attrs: { autocomplete: "off", disabled: _vm.sending },
+                    model: {
+                      value: _vm.mainDatas.email,
+                      callback: function($$v) {
+                        _vm.$set(_vm.mainDatas, "email", $$v)
+                      },
+                      expression: "mainDatas.email"
+                    }
+                  }),
+                  _vm._v(" "),
+                  !_vm.$v.mainDatas.email.required
+                    ? _c("span", { staticClass: "md-error" }, [
+                        _vm._v("请输入电子邮件地址")
+                      ])
+                    : _vm._e()
                 ],
                 1
               )
@@ -366,12 +355,6 @@ var render = function() {
           _c(
             "md-card-actions",
             [
-              _c(
-                "md-button",
-                { staticClass: "md-primary", on: { click: _vm.onOtherClick } },
-                [_vm._v("不想认证了")]
-              ),
-              _vm._v(" "),
               _c("span", { staticClass: "flex" }),
               _vm._v(" "),
               _c(
@@ -380,7 +363,7 @@ var render = function() {
                   staticClass: "md-primary md-raised",
                   attrs: { type: "submit", disabled: _vm.disabledConfirmBtn }
                 },
-                [_vm._v("认证")]
+                [_vm._v("下一步")]
               )
             ],
             1
@@ -402,9 +385,272 @@ module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-0374385e", module.exports)
+    require("vue-loader/node_modules/vue-hot-reload-api")      .rerender("data-v-4a0debc9", module.exports)
   }
 }
+
+/***/ }),
+
+/***/ "./node_modules/_vue-style-loader@3.1.2@vue-style-loader/lib/addStylesClient.js":
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+var listToStyles = __webpack_require__("./node_modules/_vue-style-loader@3.1.2@vue-style-loader/lib/listToStyles.js")
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+module.exports = function (parentId, list, _isProduction, _options) {
+  isProduction = _isProduction
+
+  options = _options || {}
+
+  var styles = listToStyles(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = listToStyles(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/_vue-style-loader@3.1.2@vue-style-loader/lib/listToStyles.js":
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
 
 /***/ }),
 
@@ -1790,21 +2036,25 @@ exports.default = withParams;
 
 /***/ }),
 
-/***/ "./packages/gmf-sys/resources/assets/js/pages/Auth/VerifyMail.vue":
+/***/ "./resources/assets/js/vendor/gmf-sys/pages/Auth/PasswordFindWord.vue":
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
+function injectStyle (ssrContext) {
+  if (disposed) return
+  __webpack_require__("./node_modules/_extract-text-webpack-plugin@3.0.2@extract-text-webpack-plugin/dist/loader.js?{\"id\":1,\"omit\":1,\"remove\":true}!./node_modules/_vue-style-loader@3.1.2@vue-style-loader/index.js!./node_modules/_css-loader@0.28.11@css-loader/index.js!./node_modules/_vue-loader@13.7.2@vue-loader/lib/style-compiler/index.js?{\"vue\":true,\"id\":\"data-v-4a0debc9\",\"scoped\":true,\"hasInlineConfig\":true}!./node_modules/_sass-loader@6.0.7@sass-loader/lib/loader.js!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=styles&index=0!./resources/assets/js/vendor/gmf-sys/pages/Auth/PasswordFindWord.vue")
+}
 var normalizeComponent = __webpack_require__("./node_modules/_vue-loader@13.7.2@vue-loader/lib/component-normalizer.js")
 /* script */
-var __vue_script__ = __webpack_require__("./node_modules/_babel-loader@7.1.4@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],\"es2015\",\"stage-3\",[\"env\",{\"modules\":false,\"useBuiltIns\":false}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"syntax-dynamic-import\"],\"ignore\":[\"dist/*.js\",\"public/*.js\"]}!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=script&index=0!./packages/gmf-sys/resources/assets/js/pages/Auth/VerifyMail.vue")
+var __vue_script__ = __webpack_require__("./node_modules/_babel-loader@7.1.4@babel-loader/lib/index.js?{\"cacheDirectory\":true,\"presets\":[[\"env\",{\"modules\":false,\"targets\":{\"browsers\":[\"> 2%\"],\"uglify\":true}}],\"es2015\",\"stage-3\",[\"env\",{\"modules\":false,\"useBuiltIns\":false}]],\"plugins\":[\"transform-object-rest-spread\",[\"transform-runtime\",{\"polyfill\":false,\"helpers\":false}],\"syntax-dynamic-import\"],\"ignore\":[\"dist/*.js\",\"public/*.js\"]}!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=script&index=0!./resources/assets/js/vendor/gmf-sys/pages/Auth/PasswordFindWord.vue")
 /* template */
-var __vue_template__ = __webpack_require__("./node_modules/_vue-loader@13.7.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-0374385e\",\"hasScoped\":false,\"buble\":{\"transforms\":{}}}!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=template&index=0!./packages/gmf-sys/resources/assets/js/pages/Auth/VerifyMail.vue")
+var __vue_template__ = __webpack_require__("./node_modules/_vue-loader@13.7.2@vue-loader/lib/template-compiler/index.js?{\"id\":\"data-v-4a0debc9\",\"hasScoped\":true,\"buble\":{\"transforms\":{}}}!./node_modules/_vue-loader@13.7.2@vue-loader/lib/selector.js?type=template&index=0!./resources/assets/js/vendor/gmf-sys/pages/Auth/PasswordFindWord.vue")
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
-var __vue_styles__ = null
+var __vue_styles__ = injectStyle
 /* scopeId */
-var __vue_scopeId__ = null
+var __vue_scopeId__ = "data-v-4a0debc9"
 /* moduleIdentifier (server only) */
 var __vue_module_identifier__ = null
 var Component = normalizeComponent(
@@ -1815,7 +2065,7 @@ var Component = normalizeComponent(
   __vue_scopeId__,
   __vue_module_identifier__
 )
-Component.options.__file = "packages\\gmf-sys\\resources\\assets\\js\\pages\\Auth\\VerifyMail.vue"
+Component.options.__file = "resources\\assets\\js\\vendor\\gmf-sys\\pages\\Auth\\PasswordFindWord.vue"
 
 /* hot reload */
 if (false) {(function () {
@@ -1824,9 +2074,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0374385e", Component.options)
+    hotAPI.createRecord("data-v-4a0debc9", Component.options)
   } else {
-    hotAPI.reload("data-v-0374385e", Component.options)
+    hotAPI.reload("data-v-4a0debc9", Component.options)
   }
   module.hot.dispose(function (data) {
     disposed = true

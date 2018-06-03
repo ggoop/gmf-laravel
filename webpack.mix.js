@@ -1,5 +1,8 @@
 const { join } = require('path')
 const { mix } = require('laravel-mix');
+const fs = require('fs-extra');
+
+fs.emptyDirSync(join(__dirname, '/public/js/chunks'));
 
 const resolvePath = (...args) => {
   const path = [__dirname, '/resources/assets/js/vendor', ...args]
