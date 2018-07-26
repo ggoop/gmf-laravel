@@ -61,6 +61,7 @@ class Kernel extends HttpKernel {
 		'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 		'visitor' => \Gmf\Sys\Http\Middleware\VisitorMiddleware::class,
 		'client_credentials' => \Gmf\Sys\Http\Middleware\CheckClientCredentials::class,
+		'vouch_auth' => \Gmf\Sys\Http\Middleware\VouchAuth::class,
 
 	];
 }
