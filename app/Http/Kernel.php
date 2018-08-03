@@ -62,6 +62,5 @@ class Kernel extends HttpKernel {
 		'visitor' => \Gmf\Sys\Http\Middleware\VisitorMiddleware::class,
 		'client_credentials' => \Gmf\Sys\Http\Middleware\CheckClientCredentials::class,
 		'vouch_auth' => \Gmf\Sys\Http\Middleware\VouchAuth::class,
-
 	];
 }

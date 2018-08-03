@@ -1,19 +1,12 @@
 const { join } = require('path')
 const { mix } = require('laravel-mix');
-const fs = require('fs-extra');
-
-fs.emptyDirSync(join(__dirname, '/public/js/chunks'));
 
 const resolvePath = (...args) => {
   const path = [__dirname, '/resources/assets/js/vendor', ...args]
 
   return join.apply(null, path)
 }
-const resolveGmfPath = () => {
-  const path = [__dirname, '/packages/gmf-sys/resources/assets/js']
 
-  return join.apply(null, path)
-}
 mix.options({
   extractVueStyles: true,
   purifyCss: false,
@@ -38,13 +31,13 @@ mix.webpackConfig({
   },
   resolve: {
     alias: {
-      // 'gmf': resolveGmfPath()
       'gmf': resolvePath('gmf-sys')
     }
   },
 });
-mix.js('resources/assets/js/app.js', 'public/js')
+mix.js('resources/assets/js/app', 'public/js')
   .extract(['axios', 'vue', 'vue-router','vuex','raf']);
 mix.sass('resources/assets/sass/app.scss', 'public/css');
+//date-fns,lodash
 
 mix.version();
